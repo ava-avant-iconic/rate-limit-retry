@@ -390,10 +390,11 @@ export class RetryHandler {
       case 'exponential':
         return Math.min(initialDelayMs * Math.pow(backoffMultiplier, attempt), maxDelayMs);
 
-      case 'exponential-with-jitter':
+      case 'exponential-with-jitter': {
         const exponentialDelay = initialDelayMs * Math.pow(backoffMultiplier, attempt);
         const jitter = exponentialDelay * 0.1 * (Math.random() * 2 - 1);
         return Math.min(exponentialDelay + jitter, maxDelayMs);
+      }
 
       case 'linear':
         return Math.min(initialDelayMs * (attempt + 1), maxDelayMs);
